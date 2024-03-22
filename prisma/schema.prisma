@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int           @id @default(autoincrement())
+  username   String
+  email      String        @unique
+  password   String
+  movies     Movie[]
+  avaliation Avaliations[]
+  isAdmin    Boolean
+}
+
+model Movie {
+  id          Int           @id @default(autoincrement())
+  // Definindo o relacionamento com o autor
+  user        User          @relation(fields: [userId], references: [id])
+  actors     Actor[]   // Um filme pode ter vários atores
+  userId      Int
+  imagePoster String
+  title       String
+  description String
+  avaliation  Avaliations[]
+  director    String
+  gender      String
+  yearLaunch  Int
+}
+
+model Avaliations {
+  id         Int   @id @default(autoincrement())
+  movie      Movie @relation(fields: [movieId], references: [id])
+  user       User  @relation(fields: [userId], references: [id])
+  userId     Int
+  movieId    Int
+  assessment Int
+}
+
+model Actor {
+  id         Int       @id @default(autoincrement())
+  name       String
+  // Relacionamento com os filmes
+  movies     Movie[]   // Um ator pode estar em vários filmes
+}
