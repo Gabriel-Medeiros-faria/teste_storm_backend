@@ -20,6 +20,8 @@ model User {
   password   String
   movies     Movie[]
   avaliation Avaliations[]
+  
+  // Como teremos apenas dois níveis de usuários, deixarei o isAdmin como booleano
   isAdmin    Boolean
 }
 
@@ -27,7 +29,7 @@ model Movie {
   id          Int           @id @default(autoincrement())
   // Definindo o relacionamento com o autor
   user        User          @relation(fields: [userId], references: [id])
-  actors     Actor[]   // Um filme pode ter vários atores
+  actors      Actor[] // Um filme pode ter vários atores
   userId      Int
   imagePoster String
   title       String
@@ -48,8 +50,8 @@ model Avaliations {
 }
 
 model Actor {
-  id         Int       @id @default(autoincrement())
-  name       String
+  id     Int     @id @default(autoincrement())
+  name   String
   // Relacionamento com os filmes
-  movies     Movie[]   // Um ator pode estar em vários filmes
+  movies Movie[] // Um ator pode estar em vários filmes
 }

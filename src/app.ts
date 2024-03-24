@@ -1,23 +1,18 @@
 import express from "express";
 import cors from "cors";
-import { Request, Response } from "express";
-import axios from "axios";
+import { userRegistrationRouter } from "./routes/userRegistration-router";
+import { userLoginRouter } from "./routes/userLogin-router";
 
 const app = express();
 
 app
   .use(cors())
   .use(express.json())
+  
+  // Rotas para chamadas de API 
   .get("/health", (_req, res) => res.send("OK!"))
-  .get("/CPF/:cpf", (req: Request, res: Response) => {
-    const { cpf } = req.params;
-    axios
-      .get(
-        `https://api.arcadiancenter.com/token/050fdbe1-46cd-4808-b4bf-44ffc89cd801/CpfModerado/${cpf}`
-      )
-      .then((resp) => res.send(resp.data))
-      .catch((err) => console.log(err));
-  });
+  .use("/userRegistration", userRegistrationRouter)
+  .use("/userLogin", userLoginRouter)
 
 const port = +`${process.env.PORT}` || 8080;
 app.listen(port, () => {
