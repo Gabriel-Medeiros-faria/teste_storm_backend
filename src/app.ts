@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import { userRegistrationRouter } from "./routes/userRegistration-router";
 import { userLoginRouter } from "./routes/userLogin-router";
 import { movieRegistrationRouter } from "./routes/movieRegistration-router";
+import { rateMovieRouter } from "./routes/rateMovie-router";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app
   .use("/userRegistration", userRegistrationRouter)
   .use("/userLogin", userLoginRouter)
   .use("/movieRegistration", movieRegistrationRouter)
+  .use("/rateMovie", rateMovieRouter)
 
 const port = +`${process.env.PORT}` || 8080;
 app.listen(port, () => {

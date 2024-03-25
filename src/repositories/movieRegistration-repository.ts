@@ -1,4 +1,3 @@
-import { Actor } from './../../node_modules/.prisma/client/index.d';
 import prisma from "../database/database";
 
 async function movieRegistration(
