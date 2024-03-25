@@ -13,7 +13,7 @@ async function userLogin(email: string, password: string) {
     
     // Utilizo a biblioteca bcrypt para fazer a verificação de senha
     const senhaHash = await bcrypt.compare(password, user?.password)
-    
+
     // Se a senha estiver incorreta retorna um erro 
     if(!senhaHash) throw {name: "Senha incorreta!"}
 

@@ -1,5 +1,6 @@
 import { authMiddleware } from "../middlewares/auth-middleware";
 import {
+  userDelete,
   userRegistration,
   userUpdate,
 } from "../controllers/userRegistration-controller";
@@ -9,6 +10,7 @@ const userRegistrationRouter = Router();
 
 userRegistrationRouter
   .post("/", authMiddleware, userRegistration)
-  .put("/", authMiddleware, userUpdate);
+  .put("/", authMiddleware, userUpdate)
+  .delete("/", authMiddleware, userDelete)
 
 export { userRegistrationRouter };

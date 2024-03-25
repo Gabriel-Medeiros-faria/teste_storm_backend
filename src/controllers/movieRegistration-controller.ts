@@ -18,3 +18,33 @@ export async function movieRegistration(req: Request, res: Response){
         res.status(400).send(err)
     }
 }
+
+export async function moviesGet(req: Request, res: Response) {
+    try{
+        const movies = await movieRegistrationService.moviesGet()
+        res.send(movies).status(200)
+    }catch(err){
+        res.status(400).send(err)
+    }
+}
+
+export async function movieGetById(req: Request, res: Response) {
+    const {id} = req.params
+    try{
+        const movie = await movieRegistrationService.movieGetById(Number(id))
+        res.send(movie).status(200)
+    }catch(err){
+        res.status(400).send(err)
+    }
+}
+
+export async function movieBySearchBar(req: Request, res: Response) {
+    const {search} = req.body
+
+    try{
+        const resultSearch = await movieRegistrationService.movieBySearchBar(search)
+        res.send(resultSearch).status(200)
+    }catch(err){
+        res.status(400).send(err)
+    }
+}

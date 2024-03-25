@@ -4,7 +4,7 @@ import userRegistrationRepository from "../repositories/userRegistration-reposit
 import bcrypt from "bcrypt";
 
 async function userRegistration(username: string, email: string, password: string, isAdmin: boolean, localUser: user){
-
+    
     // Se o usuário não for admin ele não poderá criar um novo usuário
     if(!localUser.isAdmin){
         throw {name: "Você não tem permissão para cadastrar um usuário"}
@@ -37,7 +37,8 @@ async function userUpdate(username: string, email: string, password: string, loc
         updateFields.email = localUser.email
     }
     if (password && password !== ''){
-        updateFields.password = password;
+        const hashPassword = bcrypt.hashSync(password, 10);
+        updateFields.password = hashPassword;
     }else{
         updateFields.password = localUser.password
     }
@@ -46,9 +47,13 @@ async function userUpdate(username: string, email: string, password: string, loc
     
 }
 
+async function userDelete(userId: number){
+    await userRegistrationRepository.userDelete(userId)
+}
 const userRegistrationService = {
     userRegistration,
-    userUpdate
+    userUpdate,
+    userDelete
 }
 
 export default userRegistrationService

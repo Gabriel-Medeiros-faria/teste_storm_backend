@@ -19,8 +19,29 @@ async function movieRegistration(
     await movieRegistrationRepository.movieRegistration(userId, title, description, director, gender, yearLaunch, imagePoster)
 }
 
+async function moviesGet() {
+  const movies = await movieRegistrationRepository.moviesGet()
+  if(!movies){
+    throw {name: "Ainda não existe filmes em nosso banco :)"}
+  }
+  return movies
+}
+
+async function movieGetById(id: number) {
+  const movie = await movieRegistrationRepository.movieGetById(id)
+  return movie
+}
+
+async function movieBySearchBar(search: string){
+  const searchResult = await movieRegistrationRepository.movieBySearchBar(search)
+  return searchResult
+}
+
 const movieRegistrationService = {
   movieRegistration,
+  movieGetById,
+  moviesGet,
+  movieBySearchBar
 };
 
 export default movieRegistrationService;

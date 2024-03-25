@@ -8,9 +8,19 @@ datasource db {
 }
 
 model Actor {
-  id    Int     @id @default(autoincrement())
-  name  String
-  Movie Movie[]
+  id         Int          @id @default(autoincrement())
+  name       String
+  ActorMovie ActorMovie[]
+}
+
+model ActorMovie {
+  id      Int   @id @default(autoincrement())
+  movieId Int
+  actorId Int
+  Actor   Actor @relation(fields: [actorId], references: [id])
+  Movie   Movie @relation(fields: [movieId], references: [id])
+
+  @@unique([movieId, actorId])
 }
 
 model Avaliations {
@@ -31,9 +41,9 @@ model Movie {
   director    String
   gender      String
   yearLaunch  Int
+  ActorMovie  ActorMovie[]
   Avaliations Avaliations[]
   User        User          @relation(fields: [userId], references: [id])
-  Actor       Actor[]
 }
 
 model User {
