@@ -1,4 +1,6 @@
+
 import prisma from "../database/database";
+import userLocal from "../interfaces/userlocal-interface";
 
 // Eu utilizo todos os parâmetros passado para a função e insiro todas as informações do usuário só que com a senha ecriptada
 
@@ -27,9 +29,22 @@ async function getUserByEmail(email: string) {
   });
 }
 
+async function userUpdate(username: string, email: string, password: string, localUser: userLocal){
+
+  //Atualizo o usuário com os dados passados
+  await prisma.user.update({
+    where: {id: localUser.id},
+    data: {
+      username, email, password
+    }
+  });
+
+}
+
 const userRegistrationRepository = {
   userRegistration,
   getUserByEmail,
+  userUpdate
 };
 
 export default userRegistrationRepository;

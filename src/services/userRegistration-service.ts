@@ -1,7 +1,14 @@
+import userLocal from "../interfaces/userlocal-interface";
+import user from "../interfaces/user-interface";
 import userRegistrationRepository from "../repositories/userRegistration-repository"
 import bcrypt from "bcrypt";
 
-async function userRegistration(username: string, email: string, password: string, isAdmin: boolean){
+async function userRegistration(username: string, email: string, password: string, isAdmin: boolean, localUser: user){
+
+    // Se o usuário não for admin ele não poderá criar um novo usuário
+    if(!localUser.isAdmin){
+        throw {name: "Você não tem permissão para cadastrar um usuário"}
+    }
     // Faço a requisição utilizando o repositório userRegistrationRepository mandando o email como parâmetro e verificar se o usuário(email) já existe no banco de dados
     const user = await userRegistrationRepository.getUserByEmail(email)
 
@@ -15,8 +22,33 @@ async function userRegistration(username: string, email: string, password: strin
     await userRegistrationRepository.userRegistration(username, email, hashPassword, isAdmin)
 }
 
+async function userUpdate(username: string, email: string, password: string, localUser: userLocal) {
+    // Construo a regra de negócio para atualizar no banco de dados apenas os dados que foram passados 
+    // E se não forem passado, preencho com os dados ja existentes para não alterar para algo vazio no banco de dados
+    const updateFields = {} as user;
+    if (username && username !== ''){
+        updateFields.username = username;
+    } else{
+        updateFields.username = localUser.name
+    }
+    if (email && email !== ''){
+        updateFields.email = email;
+    } else{
+        updateFields.email = localUser.email
+    }
+    if (password && password !== ''){
+        updateFields.password = password;
+    }else{
+        updateFields.password = localUser.password
+    }
+
+    await userRegistrationRepository.userUpdate(updateFields.username, updateFields.email, updateFields.password, localUser)
+    
+}
+
 const userRegistrationService = {
-    userRegistration
+    userRegistration,
+    userUpdate
 }
 
 export default userRegistrationService
