@@ -1,5 +1,7 @@
+import actorRepository from "../repositories/actor-repository";
 import user from "../interfaces/user-interface";
 import movieRegistrationRepository from "../repositories/movieRegistration-repository";
+import actorMovieRepository from "../repositories/movieActor-repository";
 
 async function movieRegistration(
   userId: number,
@@ -9,14 +11,36 @@ async function movieRegistration(
   gender: string,
   yearLaunch: number,
   imagePoster: string,
-  localUser: user
+  localUser: user,
+  actors: Array<string>
 ) {
-
     // Se o usuário não for admin ele não poderá criar um novo filme
     if(!localUser.isAdmin){
         throw {name: "Você não tem permissão para cadastrar um novo filme!"}
     }
-    await movieRegistrationRepository.movieRegistration(userId, title, description, director, gender, yearLaunch, imagePoster)
+
+    // Verifico se o ator já existe
+    let actorGetResp = await actorRepository.actorGetByName(actors)
+    // Se não existir cria o ator e o salva na variável actorGetResp
+    if(!actorGetResp){
+      actorGetResp = await actorRepository.actorCreate(actors)
+    }
+    
+    // Crio o filme no banco de dados
+    const movieRegistrationResp = await movieRegistrationRepository.movieRegistration(userId, title, description, director, gender, yearLaunch, imagePoster)
+    
+    // Pego o filme pelo ID criado
+    const movie = await movieRegistrationRepository.movieGetById(movieRegistrationResp.id)
+    
+    // Faço um loop para poder adicionar o campo actorGetResp[i]?.id que é o id do ator 
+    for (let i =0;i < actorGetResp.length;i++){
+      // Verifico se aquele ator já não está no filme
+      const actorMovie = await actorMovieRepository.actorMovieGet(movie?.id ?? 0, actorGetResp[i]?.id ?? 0) 
+      // Se não estiver no filme adiciona na tabela meio actorMovie
+      if(!actorMovie){
+        await actorMovieRepository.actorMovieCreate(movie?.id ?? 0, actorGetResp[i]?.id ?? 0)
+      }
+    }
 }
 
 async function moviesGet() {

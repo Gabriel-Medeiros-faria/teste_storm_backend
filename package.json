@@ -1,6 +1,9 @@
 {
   "scripts": {
-    "dev": "nodemon src/app.ts"
+    "dev": "nodemon src/app.ts",
+    "migrate": "prisma migrate deploy",
+    "seed": "ts-node prisma/seed.ts",
+    "migrate-and-seed": "npm run migrate && npm run seed"
   },
   "dependencies": {
     "@prisma/client": "^5.2.0",

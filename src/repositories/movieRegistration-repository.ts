@@ -9,6 +9,7 @@ async function movieRegistration(
   yearLaunch: number,
   imagePoster: string
 ) {
+
   // Crio o filme com os parâmetros passados
   return prisma.movie.create({
     data: {
@@ -69,6 +70,8 @@ async function movieBySearchBar(search: string) {
   });
   return movies;
 }
+
+
 
 const movieRegistrationRepository = {
   movieRegistration,
