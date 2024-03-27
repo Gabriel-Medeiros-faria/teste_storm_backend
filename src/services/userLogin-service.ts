@@ -4,7 +4,6 @@ import userRegistrationRepository from '../repositories/userRegistration-reposit
 
 async function userLogin(email: string, password: string) {
     const user = await userRegistrationRepository.getUserByEmail(email)
-    console.log("userLogin function called with emailasdddddddddddddddddddddddddddddddddd:", email, "and password:", password);
     // Verifico se o usuário existe e se a senha foi passada
     if(user?.password === null || !user) throw {name: "Usuário não existe!"}
 

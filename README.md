@@ -73,7 +73,15 @@ Este comando iniciará o servidor de desenvolvimento. Depois de iniciado, você 
 http://localhost:8080
 ```
 
-## Como Executar
+## Como logar o usuário
+
+Assim que você realizar as migrações do banco de dados, será inserido um usuário teste:
+```sh
+E-mail: teste@email.com
+Senha: senha123
+```
+
+## Como Executar os testes
 
 Para executar os testes, você pode usar o seguinte comando:
 
