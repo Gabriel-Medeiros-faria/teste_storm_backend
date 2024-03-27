@@ -5,7 +5,8 @@ import userRegistrationRepository from "../repositories/userRegistration-reposit
 
 // Crio o middleware para verificar se o usuário 
 export async function authMiddleware(req: Request, res: Response, next: NextFunction){
-    const {authorization} = req.headers
+    
+    const authorization = req.headers?.authorization
 
     // Verifico se o authorization existe
     if(!authorization){
