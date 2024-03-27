@@ -9,6 +9,7 @@ Antes de começar, certifique-se de ter instalado o seguinte:
 - Node.js
 - npm (Node Package Manager) ou yarn
 - Banco de dados PostgreSQL instalado localmente
+- Banco de dados PostgreSQL com o nome movies_site
 
 ## Instalação
 
@@ -34,9 +35,9 @@ Para instalar este projeto, siga estas etapas:
 
 4. Inicialize o Prisma ORM executando o seguinte comando:
 
-```sh
-npx prisma init
-```
+   ```sh
+   npx prisma generate
+   ```
 
 ## Variáveis de ambiente 
 
