@@ -5,6 +5,7 @@ export async function rateMovie(req: Request, res: Response) {
     const {userId, movieId, assessment} = req.body
 
     try{
+        // Função para avaliar o filme 
         await rateMovieService.rateMovie(userId, movieId, assessment)
         res.sendStatus(201)
     }catch(err){

@@ -173,7 +173,6 @@ async function main() {
     })
   }
   
-  console.log("Dados inseridos com sucesso!");
 }
 
 main()

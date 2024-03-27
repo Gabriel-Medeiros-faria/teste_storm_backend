@@ -3,7 +3,7 @@ import prisma from "../database/database";
 async function actorCreate(actors: Array<string>) {
     let actorArray = []
 
-    // Faço um for para poder adicionar todos os atores no banco de dados
+    // Faço um for para poder adicionar todos os atores no banco de dados e armazenar as respostas dentro de uma array
     for(let i=0; i< actors.length;i++){
         const actorResp = await prisma.actor.create({
             data:{
@@ -17,6 +17,7 @@ async function actorCreate(actors: Array<string>) {
 
   async function actorGetByName(actorName: Array<string>) {
     const actorArray = []
+    // Faço um for para poder buscar todos os atores no banco de dados e armazenar as respostas dentro de uma array
     for(let i = 0;i < actorName.length; i++){
         const actor = await prisma.actor.findFirst({
             where:{

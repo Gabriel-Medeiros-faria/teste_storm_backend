@@ -6,7 +6,7 @@ export async function movieRegistration(req: Request, res: Response){
     const {userId, title, description, director, gender, yearLaunch, imagePoster, actors} = req.body
     // Pego usuário que está logado e disponível porque disponibilizei ele no authMiddleware
     const localUser = res.locals.user
-
+    
     try{
         // Chamo a funcão movieRegistration que está dentro de movieRegistrationService e passo os parâmentros
         await movieRegistrationService.movieRegistration(userId, title, description, director, gender, yearLaunch, imagePoster, localUser, actors)
@@ -19,6 +19,8 @@ export async function movieRegistration(req: Request, res: Response){
 }
 
 export async function moviesGet(req: Request, res: Response) {
+
+    // Função para pegar todos os filmes
     try{
         const movies = await movieRegistrationService.moviesGet()
         res.send(movies).status(200)
@@ -29,6 +31,7 @@ export async function moviesGet(req: Request, res: Response) {
 
 export async function movieGetById(req: Request, res: Response) {
     const {id} = req.params
+    // Função para pegar o filme pelo ID 
     try{
         const movie = await movieRegistrationService.movieGetById(Number(id))
         res.send(movie).status(200)

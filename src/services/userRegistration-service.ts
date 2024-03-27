@@ -48,6 +48,7 @@ async function userUpdate(username: string, email: string, password: string, loc
 }
 
 async function userDelete(userId: number){
+    // Deleto o usuário logado
     await userRegistrationRepository.userDelete(userId)
 }
 const userRegistrationService = {

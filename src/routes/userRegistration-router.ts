@@ -8,6 +8,7 @@ import { Router } from "express";
 
 const userRegistrationRouter = Router();
 
+// Utilizo o authMiddleware para autenticar a rota 
 userRegistrationRouter
   .post("/", authMiddleware, userRegistration)
   .put("/", authMiddleware, userUpdate)

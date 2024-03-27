@@ -40,7 +40,6 @@ export async function userUpdate(req: Request, res: Response) {
 export async function userDelete(req: Request, res: Response) {
     // Pego todos os parâmetros do body da requisição
     const {userId} = req.body
-    console.log(userId)
     try{
         await userRegistrationService.userDelete(userId)
         res.sendStatus(200)

@@ -42,6 +42,8 @@ async function userUpdate(username: string, email: string, password: string, loc
 }
 
 async function userDelete(userId: number) {
+
+  // Função para excluir um usuário
   await prisma.user.delete({
     where:{
       id: userId
@@ -53,7 +55,7 @@ const userRegistrationRepository = {
   userRegistration,
   getUserByEmail,
   userUpdate,
-  userDelete
+  userDelete,
 };
 
 export default userRegistrationRepository;

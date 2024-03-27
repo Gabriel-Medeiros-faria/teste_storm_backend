@@ -19,6 +19,10 @@ async function movieRegistration(
         throw {name: "Você não tem permissão para cadastrar um novo filme!"}
     }
 
+    const movieByTitle = await movieRegistrationRepository.movieGetByTitle(title)
+    if(movieByTitle){
+      throw {name: "Esse filme já existe!"}
+    }
     // Verifico se o ator já existe
     let actorGetResp = await actorRepository.actorGetByName(actors)
     // Se não existir cria o ator e o salva na variável actorGetResp
@@ -61,11 +65,16 @@ async function movieBySearchBar(search: string){
   return searchResult
 }
 
+async function movieGetByTitle(title: string) {
+    const movie = await movieRegistrationRepository.movieGetByTitle(title)
+    return movie
+}
 const movieRegistrationService = {
   movieRegistration,
   movieGetById,
   moviesGet,
-  movieBySearchBar
+  movieBySearchBar,
+  movieGetByTitle
 };
 
 export default movieRegistrationService;

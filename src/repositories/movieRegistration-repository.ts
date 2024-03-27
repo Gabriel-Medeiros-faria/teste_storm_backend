@@ -71,6 +71,14 @@ async function movieBySearchBar(search: string) {
   return movies;
 }
 
+async function movieGetByTitle(title: string) {
+  return prisma.movie.findFirst({
+    where:{
+      title
+    }
+  })
+}
+
 
 
 const movieRegistrationRepository = {
@@ -78,6 +86,7 @@ const movieRegistrationRepository = {
   movieGetById,
   moviesGet,
   movieBySearchBar,
+  movieGetByTitle
 };
 
 export default movieRegistrationRepository;

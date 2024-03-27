@@ -9,6 +9,7 @@ import {
 
 const movieRegistrationRouter = Router();
 
+// Utilizo o authMiddleware para autenticar a rota 
 movieRegistrationRouter
   .post("/", authMiddleware, movieRegistration)
   .get("/", authMiddleware, moviesGet)

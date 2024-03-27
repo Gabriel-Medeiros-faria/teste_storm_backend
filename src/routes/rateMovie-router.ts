@@ -4,6 +4,7 @@ import { Router } from "express";
 
 const rateMovieRouter = Router();
 
+// Utilizo o authMiddleware para autenticar a rota 
 rateMovieRouter
   .post("/", authMiddleware, rateMovie)
 

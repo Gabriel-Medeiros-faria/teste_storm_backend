@@ -4,6 +4,7 @@ import userLoginService from "../services/userLogin-service";
 export async function userLogin(req: Request, res: Response) {
     const {email, password} = req.body
     try{
+        // Função para logar o usuário
         const token = await userLoginService.userLogin(email, password)
         res.send(token).status(200)
     }catch(err){
