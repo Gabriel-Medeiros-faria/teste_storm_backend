@@ -9,7 +9,7 @@ Antes de começar, certifique-se de ter instalado o seguinte:
 - Node.js
 - npm (Node Package Manager) ou yarn
 - Banco de dados PostgreSQL instalado localmente
-- Banco de dados PostgreSQL com o nome serasa
+- Banco de dados PostgreSQL com o nome movie_site
 
 ## Instalação
 
